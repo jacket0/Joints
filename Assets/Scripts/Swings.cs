@@ -56,8 +56,6 @@ public class Swings : MonoBehaviour
             _velocity *= -1f;
             UpdateMotor();
         }
-
-        Debug.Log(_hingeJoint.angle);
     }
 
     private void StartSwinging()

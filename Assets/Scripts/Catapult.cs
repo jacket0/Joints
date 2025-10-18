@@ -1,20 +1,19 @@
 using UnityEngine;
 
-[RequireComponent(typeof(SpringJoint))]
+[RequireComponent(typeof(HingeJoint))]
 public class Catapult : MonoBehaviour
 {
     [SerializeField] private InputHandler _inputHandler;
 
-    [SerializeField] private Vector3 _originalPosition;
-    [SerializeField] private Vector3 _topPosition;
+    [SerializeField] private float _downTargetPosition = -20;
+    [SerializeField] private float _topTargetPosition = 120;
 
-    private SpringJoint _springJoint;
+    private HingeJoint _joint;
     private bool _isReady = true;
 
     private void Awake()
     {
-        _springJoint = GetComponent<SpringJoint>();
-        _springJoint.autoConfigureConnectedAnchor = false;
+        _joint = GetComponent<HingeJoint>();
     }
 
     private void OnEnable()
@@ -37,11 +36,20 @@ public class Catapult : MonoBehaviour
     {
         if (_isReady)
         {
-            _springJoint.connectedAnchor = _topPosition;
+            ChangeAngle(_topTargetPosition);
+            _isReady = false;
         }
         else
         {
-            _springJoint.connectedAnchor = _originalPosition;
+            ChangeAngle(_downTargetPosition);
+            _isReady = true;
         }
     }    
+
+    private void ChangeAngle(float angle)
+    {
+        var j = _joint.spring;
+        j.targetPosition = angle;
+        _joint.spring = j;
+    }
 }
