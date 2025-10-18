@@ -20,7 +20,7 @@ public class Catapult : MonoBehaviour
     {
         if (_inputHandler != null)
         {
-            _inputHandler.SwingsStarted += Catapulting;
+            _inputHandler.Catapulted += Catapulting;
         }
     }
 
@@ -28,7 +28,7 @@ public class Catapult : MonoBehaviour
     {
         if (_inputHandler != null)
         {
-            _inputHandler.SwingsStarted -= Catapulting;
+            _inputHandler.Catapulted -= Catapulting;
         }
     }
 
